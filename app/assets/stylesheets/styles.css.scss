@@ -1,0 +1,362 @@
+//$themeColor: #00C3FA;
+//$themeColor: #F16595;
+//$themeColor: #8CDDFF;
+//$themeColor: #ADE6FF;
+
+$nav-color: #20BAF0;
+$background-color: #F08080;
+$select-color: #FFD988;
+$text-color: #FFFFFF;
+
+html,body{
+  height: 100%;
+}
+
+.gm-style-iw + div {display: none;}
+
+.bonus{
+  color: $nav-color;
+}
+
+.choice{
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  color: $nav-color;
+  &:hover { color: $select-color }
+}
+
+#wrap{
+  min-height: 100%;
+  height: auto!important;
+  height: 100%;
+  margin: 0 auto -60px;
+}
+
+#push, #wrap{
+  background-color: $background-color;
+}
+
+#push, #footer {
+  height: 90px;
+} 
+
+.main-page-content {
+    padding-top: 105px;
+    background-color: $background-color;
+}
+
+.brand-img{
+  padding-top: 8px;
+}
+
+.navbar-default{
+  background-color: $nav-color;
+  border-bottom-width: thick;
+  border-bottom-color: $select-color;
+}
+
+.navbar-default .navbar-brand{
+  color: $text-color;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+  color: $select-color;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{
+  border-color: $text-color;
+}
+
+.navbar-default .navbar-toggle{
+  border-color: $text-color;
+}
+
+.navbar-default .navbar-toggle .icon-bar{
+  background-color: $text-color;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: $select-color;
+}
+
+.navbar-default .navbar-nav > li > a{
+  color: $text-color;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: $text-color;
+  background-color: $select-color;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: $select-color;
+}
+
+#footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: $nav-color;
+  border-top-style: double;
+  border-top-width: 7px;
+  border-top-color: #FFD988;
+  color: $text-color;
+}
+
+.footer-center{
+  padding-top: 24px;
+}
+
+.btn-info {
+  color: $text-color;
+  background-color: $nav-color;
+  border-color: $nav-color;
+  &:hover { background-color: $select-color; border-color: $select-color }
+}
+
+.jumbotron{
+  background-color: $select-color;
+  color: $text-color;
+}
+
+.jumbotron > p > a:hover {
+  border-width: 3px;
+  border-color: $nav-color;
+  color: $nav-color;
+  background-color: $text-color;
+}
+
+.checkbox-well{
+  background-color: $background-color;
+  border-style: solid;
+  border-width: initial;
+  border-color: $text-color;
+  color: $text-color;
+}
+
+.checkbox-submit-button {
+    padding-top: 20px;
+}
+
+.newgame-well{
+  background-color: $select-color;
+  border-style: none;
+  color: $text-color;
+}
+
+.newgame-well > p > a:hover {
+  border-width: 3px;
+  border-color: $text-color;
+}
+
+.checkpoint{
+  display: block;
+  padding: 12px;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  border: 3px solid $nav-color;
+  border-radius: 50px;
+  transition: border 0.2s ease-in-out;
+  background-color: $select-color;
+  color: $nav-color;
+  text-decoration: none;
+  &:hover { border-color: $text-color; text-decoration: none } 
+}
+
+a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active{
+  color: $text-color; 
+  border-color: $text-color; 
+  text-decoration: none;
+}
+
+button.btn-info:hover, button.btn-info:focus, button.btn-info:active {
+  border-style: 3px;
+  border-color: $text-color;
+  background-color: $nav-color;
+}
+
+#map-container {
+   height: 414px;
+   border-radius: 16px 16px;
+   border-color: #fff;
+   border-style: solid;
+   box-shadow: 2px 2px 10px #B1B1B1;
+   margin-top: 25px;
+   border-width: 7px;
+   margin-bottom: 25px;
+}
+
+#map-canvas {
+   height: 400px;
+   width: 100%;
+}
+
+#pano {
+   height: 400px;
+   width: 100%;
+}
+
+.score{
+    padding-top: 5px;
+    color: $text-color;
+    font-style: bold;
+    font-size: 1.3em;
+}
+
+.text-primary{
+  color: $text-color;
+}
+
+.treasure-tilte {
+  color: $text-color;
+  padding-bottom: 35px;
+}
+
+.arrange-treasure-button{
+  text-align: center;
+  padding-top: 30px;
+}
+
+.nav-tabs > li > a:hover{
+  background-color: $select-color;
+  border-color: $text-color;
+  color: $text-color;
+  font-size: 1.15em;
+}
+
+.nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a, .nav-tabs-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs-justified > .active > a:focus, .nav-tabs.nav-justified > .active > a:focus {
+  background-color: $select-color;
+  color: $text-color;
+  border: 2px solid $text-color; 
+  border-bottom-color: $select-color; 
+  font-size: 1.15em;
+}
+
+.nav-tabs.nav-justified > .active > a:hover{
+  background-color: $select-color;
+  color: $text-color;
+  border: 2px solid $text-color;
+  font-size: 1.15em;
+}
+
+.nav-tabs.nav-justified > li > a{
+  border: 2px solid $text-color;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab-content{
+  padding-right: 25px;
+  padding-left: 25px;
+  border-radius: 0px 0px 5px 5px;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-left-style: solid;
+  border-left-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;  
+  border-color: $text-color; 
+  background-color: $select-color;
+}
+
+.cat-content{
+  padding-top: 30px;
+}
+
+.list-group {
+  border-style: solid;
+  border-color: $select-color;
+  border-radius: 7px;
+}
+
+.list-group-item{
+  background-color: $text-color;
+  border-color: $select-color;
+  border-width: 2px;
+  color: $nav-color;
+  font-size: 1.2em;
+}
+
+.players-container{
+  padding-right: 50px;
+  padding-left: 50px;  
+}
+
+.top-players-score{
+  padding-top: 11px;
+}
+
+.inv-title{
+  text-align: center;
+}
+
+.inv-img {
+  text-align: -webkit-center;
+  padding-top: 10px;
+}
+
+.health-bar{
+  width: auto;
+}
+
+.profile-title{
+  text-align: left;
+  color: $text-color;
+}
+
+.profile-img{
+  padding-right: 50px;
+  text-align: center;
+}
+
+.profile-content{
+  padding-top: 20px;
+  padding-bottom: 10px;
+  color: $text-color;
+}
+
+.progress-bar-warning{
+  background-color: $select-color;
+}
+
+.bot-padding{
+ padding-bottom: 10px; 
+}
+
+.dropdown-menu{
+  background-color: $nav-color;
+}
+
+.dropdown-menu .divider{
+  background-color: $text-color;
+}
+
+.dropdown-menu >li > a {
+  color: $text-color;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: $select-color;
+  background-color: $nav-color;
+}
+
+.btn-group{
+  margin-left: 90px;
+}
