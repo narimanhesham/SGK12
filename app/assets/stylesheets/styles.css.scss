@@ -7,6 +7,7 @@ $nav-color: #20BAF0;
 $background-color: #F08080;
 $select-color: #FFD988;
 $text-color: #FFFFFF;
+$success: #3DC53F;
 
 html,body{
   height: 100%;
@@ -16,6 +17,10 @@ html,body{
 
 .bonus{
   color: $nav-color;
+}
+
+.correct{
+  color: $success;
 }
 
 .choice{
@@ -37,7 +42,7 @@ html,body{
   -moz-user-select: none;
   -ms-user-select: none;
   color: $nav-color;
-  &:hover { color: $select-color }
+  &:hover { color: $select-color; text-decoration: none; }
 }
 
 #wrap{
@@ -213,6 +218,10 @@ button.btn-info:hover, button.btn-info:focus, button.btn-info:active {
    width: 100%;
 }
 
+.clues-text{
+  color: rgb(255, 123, 123);
+}
+
 .score{
     padding-top: 5px;
     color: $text-color;
@@ -311,10 +320,6 @@ button.btn-info:hover, button.btn-info:focus, button.btn-info:active {
   padding-top: 10px;
 }
 
-.health-bar{
-  width: auto;
-}
-
 .profile-title{
   text-align: left;
   color: $text-color;
@@ -331,8 +336,29 @@ button.btn-info:hover, button.btn-info:focus, button.btn-info:active {
   color: $text-color;
 }
 
+.progress{
+  width: auto;
+  border: 3px;
+  border-style: solid;
+  height: 25px; 
+}
+
+.health-bar{
+  border-color: $text-color;
+}
+
+.checkpoint-bar{
+  border-color: $nav-color;
+}
+
+.progress-bar-default{
+  background-color: $nav-color;
+  color: $text-color;
+}
+
 .progress-bar-warning{
   background-color: $select-color;
+  color: $text-color;
 }
 
 .bot-padding{
@@ -360,3 +386,44 @@ button.btn-info:hover, button.btn-info:focus, button.btn-info:active {
 .btn-group{
   margin-left: 90px;
 }
+
+//Pop up Style
+#blanket {
+   background-color:#111;
+   opacity: 0.65;
+   *background:none;
+   position:absolute;
+   z-index: 9001;
+   top:0px;
+   left:0px;
+   width:100%;
+}
+
+#popUpDiv {
+  position:absolute;
+  background-color: $text-color;
+  width:400px;
+  height:auto;
+  border:5px solid $nav-color;
+  z-index: 9002;
+}
+
+#popUpDiv a {position:relative; top:0px; left:20px}
+
+//end of pop up style
+
+//Challenge Question Popup
+
+.challenge-question{
+  padding: 0px 25px;
+}
+
+.challenge-question-points{
+  padding-top: 10px;
+}
+
+.choices-table td, .choices-table th{
+  border-top: none !important;
+}
+
+//end of Challenge Question Popup

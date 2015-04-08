@@ -38,12 +38,12 @@ var infowindow1;
   var Q1 = new google.maps.LatLng(40.729799, -73.99079899999998);
   var Q1marker = createMarker(Q1, panorama, "Hello I'm Question 1");
   var Q1Content = '<div>'+
-    '<p style="font-size: 1.1em;"><b>The Light can refract through ....</b></p>'+
+    '<p style="font-size: 1.1em;"><b>Q: The Light can refract through ....</b></p>'+
     '<table><tr><td><a class="choice" href="javascript:correctAnswer()">A: Water</a></td>' +
     '<td><a class="choice" href="#">B: Metal</a></td></tr>' +
     '<tr><td><a class="choice" href="#">C: Wood</a></td>' +
     '<td><a class="choice" href="#">D: All of the above</a></td></tr></table>' +
-    '<a class="btn btn-info pull-right" href="#">Hints</a>';  
+    '<a class="btn btn-info pull-right" href="#">Hints</a></div>';  
 
   //Bonus location, marker and content
   var Bonus = new google.maps.LatLng(40.729424, -73.99087500000002);//40.729700, -73.99079799999000);
@@ -147,9 +147,12 @@ function createInfoWindow(content){
 
 function correctAnswer(){
   infowindow1.setContent('');
-  var content = "<div><h3>Clues to find next question:</h3></div>" +
-    "<div><p>The Light can refract through" +
-    "<b class='bonus'>&nbspWater</b></p></div>";
+  var content = "<div><h4 class='clues-text'>(1) Clues to find next question:</h4>" +
+    "<p>Go Right till the red building then move Forward</p></div>" +
+    "<hr><div><p><b>Q:</b>&nbsp The Light can refract through" +
+    "<b class='bonus'>&nbspWater&nbsp&nbsp</b>" +
+    "<span class='glyphicon glyphicon-ok correct' aria-hidden='true'>" +
+    "</span></p></div>";
   infowindow1.setContent(content);
 }
 
