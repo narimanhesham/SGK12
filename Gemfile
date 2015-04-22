@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use mysql as the database for Active Record
@@ -11,6 +10,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
 
 gem 'lorem_ipsum_amet'
+
+gem 'nokogiri', '~> 1.6.6.2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

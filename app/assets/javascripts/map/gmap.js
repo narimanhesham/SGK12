@@ -1,6 +1,6 @@
-$(window).load(function() {
-   loadScript();
-});
+// $(window).load(function() {
+//    loadScript();
+// });
 
 var map = '';
 var poly;
@@ -43,7 +43,20 @@ var infowindow1;
     '<td><a class="choice" href="#">B: Metal</a></td></tr>' +
     '<tr><td><a class="choice" href="#">C: Wood</a></td>' +
     '<td><a class="choice" href="#">D: All of the above</a></td></tr></table>' +
-    '<a class="btn btn-info pull-right" href="#">Hints</a></div>';  
+    '<div class="pull-left"><img src="/assets/wrong-coins.png">' +
+    '<a class="hint-choice" href="#">Explain (-20)&nbsp&nbsp&nbsp</a></div>' +
+    '<div class="pull-right"><img src="/assets/wrong-coins.png">' +
+    '<a class="hint-choice" href="#">Remove Two (-50)</a></div></div>';
+
+    // '<div class="btn-group pull-left">' + 
+    // '<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"' +
+    // 'aria-expanded="false">Hints<span class="caret"></span></button>' +
+    // '<ul class="dropdown-menu" role="menu">' +
+    // '<li><a href="#">Action</a></li>' +
+    // '<li><a href="#">Another action</a></li>' +
+    // '</ul></div></div>';
+
+    //'<a class="btn btn-info " href="#">Hints</a></div>'; 
 
   //Bonus location, marker and content
   var Bonus = new google.maps.LatLng(40.729424, -73.99087500000002);//40.729700, -73.99079799999000);
@@ -51,7 +64,7 @@ var infowindow1;
   var BonusContent = '<div class="pull-left">' +
     '<img src="/assets/Empire state.jpg" style="padding-right: 20px;"></div>' +
     '<div class="pull-right">' + 
-    '<p><h4><u>The Empire State Building:</u></h4></p>' +
+    '<p><h4>The Empire State Building: "value", </h4></p>' +
     '<p class="bonus">* Where to find me?</p>' +
     '<p>Midtown Manhattan, New York City.</p>' +
     '<p class="bonus">* How tall am I?</p>' +
