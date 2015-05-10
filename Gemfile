@@ -13,6 +13,8 @@ gem 'lorem_ipsum_amet'
 
 gem 'nokogiri', '~> 1.6.6.2'
 
+gem 'gon'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views

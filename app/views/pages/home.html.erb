@@ -16,15 +16,113 @@
         <h1>Select Content of the Game</h1>
       </div>
     </div>
-    <div class="row">
-      <div class="form-group">
-        <div class="checkbox">
+    <br>
+    <%= form_for :game, :url => {:controller => "pages", :action => "checkpointsMap"}  do |game| %>
+    <!-- <div class="form-group"> -->
+      <div class="row checkbox">
+        <!-- <div class="checkbox"> -->
+        <% @units.each do |unit| 
+          @lessons = unit.lessons
+          @lessons.each do |lesson| %>
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <%= check_box_tag "game[lesson_ids][]", lesson.id %>
+            <!-- <input type="checkbox"> -->
+            <label>
+              Unit(<%= unit.number %>-<%= lesson.number %>): <%= lesson.name %>
+            </label>
+          </div>
+        <% end %>
+        <% end %>
+        <!-- </div> -->  <!-- end of checkboxes -->
+      </div> <!-- end of checkboxes row --> 
+      <br>
+      <br>
+      <%= hidden_field_tag 'mode', '', :id => "gameMode" %> 
+      <div class="row">      
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="well text-center newgame-well">
+            <%= image_tag('User.png') %>
+            <h2>Zen Mode</h2>
+            <p>Play without any restrictions on time</p>
+            <p>
+              <input class="btn btn-info" type="submit" value="New Game" onclick="setMode('Zen')">
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="well text-center newgame-well">
+            <%= image_tag('Clock.png') %>
+            <h2>Time Limit Mode</h2>
+            <p>Play with restrictions on time</p>
+            <p>
+              <input class="btn btn-info" href="#" type="submit" value="New Game" onclick="setMode('Time Limit')">
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <div class="well text-center newgame-well">
+            <%= image_tag('multiUsers.png') %>
+            <h2>Racing Mode</h2>
+            <p>Challenge a friend or another player</p>
+            <p>
+              <input class="btn btn-info" href="#" type="submit" value="New Game"  onclick="setMode('Racing')">
+            </p>
+          </div>
+        </div>        
+      </div>
+
+<!--       <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center checkbox-submit-button">
+          <input class="btn btn-info" href="#" type="submit" value="Submit">
+        </div>
+      </div>  -->      
+    <!-- </div> --> <!-- end of form group -->
+    <% end %>
+  </div> <!-- end of well -->
+</div> <!-- end of container -->
+
+
+<!-- Three wells of new game outside the form
+<div class="container bot-padding">
+    <div class="row">      
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="well text-center newgame-well">
+          <%= image_tag('User.png') %>
+          <h2>Zen Mode</h2>
+          <p>Play without any restrictions on time</p>
+          <p><a class="btn btn-info" href="home/checkpointsMap" role="button">New Game</a></p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="well text-center newgame-well">
+          <%= image_tag('Clock.png') %>
+          <h2>Time Limit Mode</h2>
+          <p>Play with restrictions on time</p>
+          <p><a class="btn btn-info" href="#" role="button">New Game</a></p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="well text-center newgame-well">
+          <%= image_tag('multiUsers.png') %>
+          <h2>Racing Mode</h2>
+          <p>Challenge a friend or another player</p>
+          <p><a class="btn btn-info" href="#" role="button">New Game</a></p>
+        </div>
+      </div>        
+    </div>
+  </div> -->
+
+            <!-- 
+          <div class="checkbox">
           <div class="col-lg-4 col-md-4 col-sm-12">
             <input type="checkbox" id="checkbox1">
+            <label for="checkbox1">
+              Unit(1-1): <%= Lesson.where(:unit_id => 1, :number => 1).first.name %>
+            </label>
             <label for="checkbox1">Unit(1-1): Light</label>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12">
-            <input type="checkbox" id="checkbox2">
+            <input type="checkbox" id=" ">
             <label for="checkbox2">Unit(1-2): Seeing Colored Objects</label>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12">
@@ -55,99 +153,11 @@
             <input type="checkbox" id="checkbox9">
             <label for="checkbox9">Unit(3-3): Environmental Balance</label>
           </div>
-        </div> <!-- end of checkboxes -->
-        <div class="col-lg-12 col-md-12 col-sm-12 text-center checkbox-submit-button">
-          <input class="btn btn-info" href="#" type="submit" value="Submit">
-        </div>
-      </div> <!-- end of form group -->        
-    </div> <!-- end of checkboxes row -->
-  </div> <!-- end of well -->
-</div> <!-- end of container -->
+          </div> -->
 
-
-<!-- <div class="container">
-  <div class="row">
-    <div class="form-group">
-      <label for="sel1">Select list:</label>
-      <select multiple class="selectpicker" title='Choose one or more..' dta-width="100%" id="sel1">
-        <optgroup label="Unit 1" >
-          <option>Lesson 1</option>
-          <option>Lesson 2</option>
-          <option>Lesson 3</option>
-        <optgroup label="Unit 2">  
-          <option>Lesson 1</option>
-          <option>Lesson 2</option>
-          <option>Lesson 3</option>
-        <optgroup label="Unit 3">  
-          <option>Lesson 1</option>
-          <option>Lesson 2</option>
-          <option>Lesson 3</option>          
-  </select>
 </div>
-  </div>
-  <div class="row">
-    <div class="dropdown">
-      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-        Select lesson/multiple lessons:
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 1: Lesson 1</a>
-        </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 1: Lesson 2</a>
-        </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 1: Lesson 3</a>
-        </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 2: Lesson 1</a>
-        </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 2: Lesson 2</a>
-        </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 2: Lesson 3</a>
-        </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 3: Lesson 1</a>
-        </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 3: Lesson 2</a>
-        </li>
-        <li role="presentation">
-          <a role="menuitem" tabindex="-1" href="#">Unit 3: Lesson 3</a>
-        </li>        
-      </ul>
-    </div>
-  </div> -->
-  <div class="container bot-padding">
-    <div class="row">      
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="well text-center newgame-well">
-          <%= image_tag('User.png') %>
-          <h2>Zen Mode</h2>
-          <p>Play without any restrictions on time</p>
-          <p><a class="btn btn-info" href="home/checkpointsMap" role="button">New Game</a></p>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="well text-center newgame-well">
-          <%= image_tag('Clock.png') %>
-          <h2>Time Limit Mode</h2>
-          <p>Play with restrictions on time</p>
-          <p><a class="btn btn-info" href="#" role="button">New Game</a></p>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="well text-center newgame-well">
-          <%= image_tag('multiUsers.png') %>
-          <h2>Racing Mode</h2>
-          <p>Challenge a friend or another player</p>
-          <p><a class="btn btn-info" href="#" role="button">New Game</a></p>
-        </div>
-      </div>        
-    </div>
-  </div>
-</div>
+<script type="text/javascript">
+  function setMode(mode){
+    document.getElementById('gameMode').value = mode;
+  }
+</script>

@@ -11,13 +11,19 @@ Rails.application.routes.draw do
 
   get 'help' => 'pages#help', as: :help
 
-  get 'home/checkpointsMap/play' => 'pages#play', as: :play 
+  get 'home/checkpointsMap/play/:game_id/:checkpoint_id/:city_id' => 'pages#play', as: :play 
 
   get 'treasureHunties/arrangeInvention' => 'pages#arrangeInvention', as: :arrangeInvention
 
   get 'treasureHunties/arrangeInvention/information' => 'pages#information', as: :information
 
-  get 'home/checkpointsMap' => 'pages#checkpointsMap', as: :checkpointsMap
+  # get 'home/checkpointsMap' => 'pages#checkpointsMap', as: :checkpointsMap
+
+  post '/home/checkpointsMap' => 'pages#checkpointsMap', as: :checkpointsMapPost
+
+  get 'home/addQuestionsHints' => 'pages#addQuestionsHints', as: :addQuestionsHints
+
+  # post '/' => 'pages#checkpointsMap', as: :newGame 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
