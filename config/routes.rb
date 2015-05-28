@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get 'profile' => 'pages#profile', as: :profile
 
-  get 'treasureHunties' => 'pages#treasureHunties', as: :treasureHunties
+  get 'treasureHunties/:game_id' => 'pages#treasureHunties', as: :treasureHunties
 
   get 'collectedInventions' => 'pages#collectedInventions', as: :collectedInventions
 
@@ -17,11 +17,19 @@ Rails.application.routes.draw do
 
   get 'treasureHunties/arrangeInvention/information' => 'pages#information', as: :information
 
-  # get 'home/checkpointsMap' => 'pages#checkpointsMap', as: :checkpointsMap
+  get 'home/checkpointsMap/:game_id' => 'pages#checkpointsMap', as: :checkpointsMap
 
   post '/home/checkpointsMap' => 'pages#checkpointsMap', as: :checkpointsMapPost
 
   get 'home/addQuestionsHints' => 'pages#addQuestionsHints', as: :addQuestionsHints
+
+  get 'register' => 'pages#register', as: :register
+
+  post 'home/checkpointsMap/play:game_id/:checkpoint_id/:city_id' => 'pages#play', as: :playPost
+
+  get 'home/checkpointsMap/play:game_id/:checkpoint_id/:city_id?:score&:correct_questions' => 'pages#play', as: :playGet
+
+  get 'treasureHunties/:game_id/information' => 'pages#information', as: :inventionInformation
 
   # post '/' => 'pages#checkpointsMap', as: :newGame 
 

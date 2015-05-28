@@ -9,6 +9,115 @@ $select-color: #FFD988;
 $text-color: #FFFFFF;
 $success: #3DC53F;
 
+////////////////////////////////////////////////////////////////
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+.column {
+  height: 203px;
+  width: 180px;
+  float: left;
+  border: 2px solid #666666;
+  background-color: #ccc;
+  margin-right: 5px;
+  -webkit-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 3px #000;
+  -ms-box-shadow: inset 0 0 3px #000;
+  box-shadow: inset 0 0 3px #000;
+  text-align: center;
+  cursor: move;
+}
+.column header {
+  color: #fff;
+  text-shadow: #000 0 1px;
+  box-shadow: 5px;
+  padding: 5px;
+  background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+  background: -webkit-gradient(linear, left top, right top,
+                               color-stop(0, rgb(0,0,0)),
+                               color-stop(0.50, rgb(79,79,79)),
+                               color-stop(1, rgb(21,21,21)));
+  background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+  background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+  border-bottom: 1px solid #ddd;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -ms-border-radius-topleft: 10px;
+  border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -ms-border-top-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-right-radius: 10px;
+}
+
+.column.over {
+  border: 2px dashed #000;
+}
+
+////////////////////////////////////////////////////////////////
+
+.box {
+  height: 125px;
+  width: 125px;
+  float: left;
+  border: 3px solid #0092BF;
+  background-color: #FFEBDD;
+  margin-right: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: move;
+}
+
+.sortable {
+  width: 620px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.sortable.grid {
+  overflow: hidden;
+}
+
+.sortable li {
+  list-style: none;
+  border: 1px solid #CCC;
+  background: #F6F6F6;
+  color: #1C94C4;
+  margin: 5px;
+  padding: 5px;
+  height: 22px;
+}
+
+.sortable.grid li {
+  line-height: 80px;
+  float: left;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+}
+
+.handle {
+  cursor: move;
+}
+
+li.sortable-placeholder {
+  border: 1px dashed #CCC;
+  background: none;
+}
+
 html,body{
   height: 100%;
 }
@@ -244,6 +353,11 @@ button.btn-info:hover, button.btn-info:focus, button.btn-info:active {
    width: 100%;
 }
 
+.wrong-answer-text{
+  color: $background-color;
+  text-align: center;
+}
+
 .clues-text{
   color: rgb(255, 123, 123);
 }
@@ -455,6 +569,29 @@ button.btn-info:hover, button.btn-info:focus, button.btn-info:active {
 }
 
 //end of Challenge Question Popup
+
+//Checkpoint Completed Popup
+.congrats-text{
+  text-align: center;
+  color: $nav-color;
+}
+
+.part-image{
+  text-align:center;
+}
+
+.checkpoint-completed-text{
+  text-align:center;
+  font-size: large;
+  color: $nav-color;
+}
+
+.checkpoint-completed-div{
+  padding-left: 85px;
+  padding-right: 85px;
+  padding-bottom: 60px;
+}
+//end of Checkpoint Completed Popup
 
 //Choose city popup
 

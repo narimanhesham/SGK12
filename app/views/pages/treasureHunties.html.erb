@@ -1,53 +1,173 @@
 <% provide(:treasure_hunties, "active") %>
 <% provide(:title, "Treasure Hunties") %>
+<%= include_gon(:init => true) %>
 
 <div class="container treasure-tilte">
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <h2 class="text-center">Collected Treasure from Checkpoints</h2>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <h2 style="padding-left: 15px;">Collected Treasure from Checkpoints</h2>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div id="columns" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="column" draggable="true" id="col1">
+        <!-- <header>A</header> -->
+        <%= image_tag(@game_invention.part4, id: "part4", alt: "Part 4") %>
+      </div>
+      <div class="column" draggable="true" id="col2">
+        <!-- <header>B</header> -->
+        <%= image_tag(@game_invention.part6, id: "part6", alt: "Part 6") %>
+      </div>
+      <div class="column" draggable="true" id="col3">
+        <!-- <header>C</header> -->
+        <%= image_tag(@game_invention.part1, id: "part1", alt: "Part 1") %>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div id="columns" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+      <div class="column" draggable="true" id="col4">
+        <!-- <header>D</header> -->
+        <%= image_tag(@game_invention.part5, id: "part5", alt: "Part 5") %>
+      </div>
+      <div class="column" draggable="true" id="col5">
+        <!-- <header>E</header> --> 
+        <%= image_tag(@game_invention.part2, id: "part2", alt: "Part 2") %>
+      </div>
+      <div class="column" draggable="true" id="col6">
+        <!-- <header>F</header> -->
+        <%= image_tag(@game_invention.part3, id: "part3", alt: "Part 3") %>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- <div class="container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	
+</div>
+<br>
+<div class="container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  
+</div>
+<br>
 <div class="container">
-  <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-      <a href="#" class="thumbnail">
-        <%= image_tag('Part 2.png') %>
-      </a>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-      <a href="#" class="thumbnail">
-        <%= image_tag('Part 6.png') %>
-      </a>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-      <a href="#" class="thumbnail">
-        <%= image_tag('Part 5.png') %>
-      </a>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-      <a href="#" class="thumbnail">
-        <%= image_tag('Part 1.png') %>
-      </a>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-      <a href="#" class="thumbnail">
-        <%= image_tag placeholder_image(360, 208) %>
-      </a>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-      <a href="#" class="thumbnail">
-        <%= image_tag placeholder_image(360, 208) %>
-      </a>
-    </div>                    
+  <div id="columns">
+    
   </div>
-</div>
+</div> -->
 
-<div class="container treasure-tilte">
-  <div class="row arrange-treasure-button">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-      <a href="treasureHunties/arrangeInvention" class="btn btn-info">Arrange Treasure</a>
-    </div>
-  </div>
-</div>
+<script type="text/javascript">
+  function handleDragOver(e) {
+    if (e.preventDefault) {
+      e.preventDefault(); // Necessary. Allows us to drop.
+    }
+
+    e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+    
+    return false;
+  }
+
+  function handleDragEnter(e) {
+    // this / e.target is the current hover target.
+    this.classList.add('over');
+  }
+
+  function handleDragLeave(e) {
+    this.classList.remove('over');  // this / e.target is previous target element.
+  }
+
+  function handleDrop(e) {
+    //this.style.opacity = '1';
+    // this/e.target is current target element.
+
+    if (e.stopPropagation) {
+      e.stopPropagation(); // Stops some browsers from redirecting.
+    }
+
+    // Don't do anything if dropping the same column we're dragging.
+    if (dragSrcEl != this) {
+      // Set the source column's HTML to the HTML of the column we dropped on.
+      dragSrcEl.innerHTML = this.innerHTML;
+      this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+
+    //var col1 = $('#1').attr('img');
+    // var col1 = document.getElementById("col1").innerHTML;
+    // var col2 = document.getElementById("col2").innerHTML;
+    // var col3 = document.getElementById("col3").innerHTML;
+    // var col4 = document.getElementById("4").innerHTML;
+    // var col5 = document.getElementById("5").innerHTML;
+    // var col6 = document.getElementById("6").innerHTML;
+    var col1 = $('#col1').children('#part1');
+    var col2 = $('#col2').children('#part2');
+    var col3 = $('#col3').children('#part3');
+    var col4 = $('#col4').children('#part4');
+    var col5 = $('#col5').children('#part5');
+    var col6 = $('#col6').children('#part6');
+    console.log("col1: " + $(col1[0]).attr('alt'));
+    console.log("col2: " + $(col2[0]).attr('alt'));
+    console.log("col3: " + $(col3[0]).attr('alt'));
+    console.log("col4: " + $(col4[0]).attr('alt'));
+    console.log("col5: " + $(col5[0]).attr('alt'));
+    console.log("col6: " + $(col6[0]).attr('alt'));
+
+    // var x = $('#col1').children('#part1');
+    // console.log($(x[0]).attr('alt'));
+
+    col1Value = $(col1[0]).attr('alt');
+    col2Value = $(col2[0]).attr('alt');
+    col3Value = $(col3[0]).attr('alt');
+    col4Value = $(col4[0]).attr('alt');
+    col5Value = $(col5[0]).attr('alt');
+    col6Value = $(col6[0]).attr('alt');
+
+    console.log("==========" + gon.game.id);
+
+    if(col1Value == "Part 1" && col2Value == "Part 2" && col3Value == "Part 3" && col4Value == "Part 4" && col5Value == "Part 5" && col6Value == "Part 6") {
+      var delay = 2000;
+      setTimeout(function(){
+        window.location.href = "/treasureHunties/" + gon.game.id + "/information";
+      },delay);
+      
+      console.log("True");
+    }
+    else {
+      console.log("False");
+    }
+
+    return false;
+  }
+
+  function handleDragEnd(e) {
+    //this.style.opacity = '0.5';
+    // this/e.target is the source node.
+
+    [].forEach.call(cols, function (col) {
+      col.classList.remove('over');
+    });
+  }
+
+  var dragSrcEl = null;
+
+  function handleDragStart(e) {
+    // Target (this) element is the source node.
+    //this.style.opacity = '0.5';
+
+    dragSrcEl = this;
+
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+  }
+  
+  var cols = document.querySelectorAll('#columns .column');
+  [].forEach.call(cols, function(col) {
+    col.addEventListener('dragstart', handleDragStart, false);
+    col.addEventListener('dragenter', handleDragEnter, false);
+    col.addEventListener('dragover', handleDragOver, false);
+    col.addEventListener('dragleave', handleDragLeave, false);
+    col.addEventListener('drop', handleDrop, false);
+    col.addEventListener('dragend', handleDragEnd, false);
+  });
+</script>

@@ -7,15 +7,19 @@ var poly;
 
 var infowindow1;
 
-alert(gon.city.name);
-//alert(gon.units);
-alert(gon.questions);
-alert(gon.locations);
+// alert(gon.city.name);
+// //alert(gon.units);
+// alert(gon.questions);
+// alert(gon.locations);
 
 var questions = gon.questions;
-alert(questions[1].content);
+// alert(questions[1].content);
 
 var locations = gon.locations;
+
+var correctQuestions = 0;
+
+var previousIndex;
 
 function initialize() {
 //   var mapOptions = {
@@ -29,6 +33,7 @@ function initialize() {
 
 
   //var newYork = new google.maps.LatLng(40.729884, -73.99079899999998);
+  //var newYork = new google.maps.LatLng(40.751759, -73.982151); //heading 30 pitch 8
   var playCity = new google.maps.LatLng(gon.city.latitude, gon.city.longitude);
   var paris = new google.maps.LatLng(48.851687, 2.351716);
   //var boston = new google.maps.LatLng(42.345573, -71.098326);
@@ -46,14 +51,15 @@ function initialize() {
   //map.setStreetView(panorama);
   panorama.setVisible(true);
 
-  //To get the latitude and longitude from the street view map
-  google.maps.event.addListener(panorama, 'position_changed', function() {
-    var positionCell = document.getElementById('position_cell');
-    positionCell.firstChild.nodeValue = panorama.getPosition() + '';
-  });
+  // //To get the latitude and longitude from the street view map
+  // google.maps.event.addListener(panorama, 'position_changed', function() {
+  //   var positionCell = document.getElementById('position_cell');
+  //   positionCell.firstChild.nodeValue = panorama.getPosition() + '';
+  // });
 
   // Loop for questions and locations
   // for (var i = 0; i < 7; i++) {
+    correctQuestions = 0;
     var unique = [];
     var loop = 0;
     var index =0;
@@ -83,7 +89,7 @@ function initialize() {
       loop++;
 
       var question = '<div>'+
-        '<p style="font-size: 1.1em;"><b>Q: ' +  questions[x].content + ' ....</b></p><table><tr>'+ 
+        '<p style="font-size: 1.1em;"><b>Q: ' +  questions[x].content + '</b></p><table><tr>'+ 
         '<td><a class="choice" onclick="javascript:correctAnswer(\'' + x + '\',\'' + questions[x].choice_A + '\',\'' + index + '\')">A: ' + 
         questions[x].choice_A + '</a></td>' +
         '<td><a class="choice" onclick="javascript:correctAnswer(\'' + x + '\',\'' + questions[x].choice_B + '\',\'' + index + '\')">B: ' + 
@@ -92,10 +98,10 @@ function initialize() {
         questions[x].choice_C + '</a></td>' + 
         '<td><a class="choice" onclick="javascript:correctAnswer(\'' + x + '\',\'' + questions[x].choice_D + '\',\'' + index + '\')">D: ' + 
         questions[x].choice_D + '</a></td></tr></table>' +
-        '<div class="pull-left"><img src="/assets/wrong-coins.png">' +
-        '<a class="hint-choice" href="#">Explain (-20)&nbsp&nbsp&nbsp</a></div>' +
-        '<div class="pull-right"><img src="/assets/wrong-coins.png">' +
-        '<a class="hint-choice" href="#">Remove Two (-50)</a></div></div>';
+        '<div class="pull-left" id="exp"><img src="/assets/wrong-coins.png" id="expImg" alt="explainImg">' +
+        '<a class="hint-choice" onclick="javascript:explain(\'' + x + '\',\'' + index + '\')">Explain (-20)&nbsp&nbsp&nbsp</a></div>' +
+        '<div class="pull-right"id="rem"><img src="/assets/wrong-coins.png" id="remImg" alt="removeImg">' +
+        '<a class="hint-choice" onclick="javascript:removeTwo(\'' + x + '\',\'' + index + '\')">Remove Two (-50)</a></div></div>';
 
       //infowindow1 = createInfoWindow(question);
       infowindow1 = createInfoWindow("test");
@@ -115,25 +121,31 @@ function initialize() {
         }
       })(questionMarker,index));
 
+      previousIndex = index;
       index++;
 
     });
   // };
-  
 
-  //Question 1 location, marker and content
-  var Q1 = new google.maps.LatLng(40.729799, -73.99079899999998);
-  var Q1marker = createMarker(Q1, panorama, "Hello I'm Question 1");
-  var Q1Content = '<div>'+
-    '<p style="font-size: 1.1em;"><b>Q: The Light can refract through ....</b></p>'+
-    '<table><tr><td><a class="choice" href="javascript:correctAnswer()">A: Water</a></td>' +
-    '<td><a class="choice" href="#">B: Metal</a></td></tr>' +
-    '<tr><td><a class="choice" href="#">C: Wood</a></td>' +
-    '<td><a class="choice" href="#">D: All of the above</a></td></tr></table>' +
-    '<div class="pull-left"><img src="/assets/wrong-coins.png">' +
-    '<a class="hint-choice" href="#">Explain (-20)&nbsp&nbsp&nbsp</a></div>' +
-    '<div class="pull-right"><img src="/assets/wrong-coins.png">' +
-    '<a class="hint-choice" href="#">Remove Two (-50)</a></div></div>'; 
+  // //To get the latitude and longitude from the street view map
+  // google.maps.event.addListener(panorama, 'position_changed', function() {
+  //   var positionCell = document.getElementById('position_cell');
+  //   positionCell.firstChild.nodeValue = panorama.getPosition() + '';
+  // });
+
+  // //Question 1 location, marker and content
+  // var Q1 = new google.maps.LatLng(40.729799, -73.99079899999998);
+  // var Q1marker = createMarker(Q1, panorama, "Hello I'm Question 1");
+  // var Q1Content = '<div>'+
+  //   '<p style="font-size: 1.1em;"><b>Q: The Light can refract through ....</b></p>'+
+  //   '<table><tr><td><a class="choice" href="javascript:correctAnswer()">A: Water</a></td>' +
+  //   '<td><a class="choice" href="#">B: Metal</a></td></tr>' +
+  //   '<tr><td><a class="choice" href="#">C: Wood</a></td>' +
+  //   '<td><a class="choice" href="#">D: All of the above</a></td></tr></table>' +
+  //   '<div class="pull-left"><img src="/assets/wrong-coins.png">' +
+  //   '<a class="hint-choice" href="#">Explain (-20)&nbsp&nbsp&nbsp</a></div>' +
+  //   '<div class="pull-right"><img src="/assets/wrong-coins.png">' +
+  //   '<a class="hint-choice" href="#">Remove Two (-50)</a></div></div>'; 
 
   //Bonus location, marker and content
   var Bonus = new google.maps.LatLng(40.729424, -73.99087500000002);//40.729700, -73.99079799999000);
@@ -265,9 +277,192 @@ function correctAnswer(index,choice,locIndex){
     $("#playerProgress").html(percentage + "%");
     // console.log(newProgressValue + "==========" + newProgressWidth);
 
+    if(locIndex == 6){
+      popup('checkpointCompleted');
+    }
+
+    correctSoFar = +gon.game.correct_questions;
+    console.log(correctSoFar + "======" + correctQuestions);
+    correctQuestions =  correctSoFar + correctQuestions + 1;
+    console.log("====" + correctQuestions);
+
+    $.ajax({
+        url : "/home/checkpointsMap/play" + gon.game.id + "/" + gon.checkpoint.id + "/" + gon.city.id,
+        type : "post",
+        data : { score: JSON.stringify(currentScoreValue), correct_questions: JSON.stringify(correctQuestions) }
+    });
+
   }else{
     console.log("wrong answer!!")
+    var currentScore = document.getElementById("playerScore");
+    var currentScoreValue = currentScore.innerHTML;
+    popup('wrongQuestion');
+    $.ajax({
+        url : "/home/checkpointsMap/play" + gon.game.id + "/" + gon.checkpoint.id + "/" + gon.city.id + "?",
+        type : "get",
+        data : { score: JSON.stringify(currentScoreValue), correct_questions: JSON.stringify(correctQuestions) }
+    });
   }
+  previousIndex = locIndex;
+}
+
+function removeTwo(index,locIndex) {
+  console.log("-------" + locIndex);
+  var eliminated = questions[index].eliminated_choices;
+  var eliminated_choices_array = eliminated.split(',');
+  console.log("eliminated_choices" + eliminated_choices_array[0] + "----" + eliminated_choices_array[1]);
+  var choices_array = [];
+
+  choices_array.push(questions[index].choice_A);
+  choices_array.push(questions[index].choice_B);
+  choices_array.push(questions[index].choice_C);
+  choices_array.push(questions[index].choice_D);
+
+  console.log(questions[index].choice_A);
+  console.log(questions[index].choice_B);
+  console.log(questions[index].choice_C);
+  console.log(questions[index].choice_D);
+
+  var indices = [];
+  var new_choices = [];
+
+  for (var i = 0; i < choices_array.length; i++) {
+    for (var j = 0; j < eliminated_choices_array.length; j++) {
+      if (choices_array[i] == eliminated_choices_array[j]) {
+        indices.push(i);
+      }
+    };
+  };
+
+  for (var i = 0; i < choices_array.length; i++) {
+    if(i != indices[0] && i != indices[1]){
+      new_choices.push(choices_array[i]);
+    }
+  };
+
+  console.log("indices" + indices[0] + "----" + indices[1] + "----" + indices[2] + "----" +indices[3]);
+  console.log(new_choices[0] + "------" + new_choices[1])
+
+  var e = $('#exp').children('#expImg');
+  var explain = $(e[0]).attr('alt');
+  console.log("Explain div ====" + explain);
+
+  if(explain == "explainImg") {
+    var content = '<div>'+
+        '<p style="font-size: 1.1em;"><b>Q: ' +  questions[index].content + '</b></p><table><tr>'+ 
+        '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + new_choices[0] + '\',\'' + locIndex + '\')">A: ' + 
+        new_choices[0] + '</a></td>' +
+        '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + new_choices[1] + '\',\'' + locIndex + '\')">B: ' + 
+        new_choices[1] + '</a></td></tr></table>' + 
+        '<div class="pull-left" id="exp"><img src="/assets/wrong-coins.png">' +
+        '<a class="hint-choice" onclick="javascript:explain(\'' + index + '\',\'' + locIndex + '\')">Explain (-20)&nbsp&nbsp&nbsp</a></div>' +
+        '</div>';
+      } else {
+        var exp = questions[index].explaination;
+        var content = '<div>'+
+            '<p style="font-size: 1.1em;"><b>Q: ' +  questions[index].content + '</b></p><table><tr>'+ 
+            '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + new_choices[0] + '\',\'' + locIndex + '\')">A: ' + 
+            new_choices[0] + '</a></td>' +
+            '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + new_choices[1] + '\',\'' + locIndex + '\')">B: ' + 
+            new_choices[1] + '</a></td></tr></table><br>' +
+            '<div style="font-size: 1.1em; color:rgb(242, 130, 130);"> Explaination: ' + exp + '</div></div>';
+      }
+  
+  infowindow1.setContent(content); 
+
+  var currentScore = document.getElementById("playerScore");
+    var currentScoreValue = currentScore.innerHTML;
+    currentScoreValue = +currentScoreValue - 50;
+    currentScore.innerHTML = currentScoreValue;
+    console.log("Before===" + gon.game.score);
+    gon.game.score = currentScoreValue;
+    gon.game.save;
+    console.log("After===" + gon.game.score);     
+}
+
+function explain(index,locIndex) {
+  var exp = questions[index].explaination;
+  console.log("======================" + exp);
+
+  var r = $('#rem').children('#remImg');
+  var remove = $(r[0]).attr('alt');
+  console.log("remove div ====" + remove);
+
+  if(remove == "removeImg"){
+    var content = '<div>'+
+        '<p style="font-size: 1.1em;"><b>Q: ' +  questions[index].content + '</b></p><table><tr>'+ 
+        '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + questions[index].choice_A + '\',\'' + locIndex + '\')">A: ' + 
+        questions[index].choice_A + '</a></td>' +
+        '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + questions[index].choice_B + '\',\'' + locIndex + '\')">B: ' + 
+        questions[index].choice_B + '</a></td></tr>' + 
+        '<tr><td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + questions[index].choice_C + '\',\'' + locIndex + '\')">C: ' + 
+        questions[index].choice_C + '</a></td>' + 
+        '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + questions[index].choice_D + '\',\'' + locIndex + '\')">D: ' + 
+        questions[index].choice_D + '</a></td></tr></table><br>' +
+        '<div style="font-size: 1.1em; color:rgb(242, 130, 130);"> Explaination: ' + exp + '</div>' +
+        '<div class="pull-left" id="rem"><img src="/assets/wrong-coins.png">' +
+        '<a class="hint-choice" onclick="javascript:removeTwo(\'' + index + '\',\'' + locIndex + '\')">Remove Two (-50)</a></div></div>';
+      } else {
+        var eliminated = questions[index].eliminated_choices;
+        var eliminated_choices_array = eliminated.split(',');
+        var choices_array = [];
+        choices_array.push(questions[index].choice_A);
+        choices_array.push(questions[index].choice_B);
+        choices_array.push(questions[index].choice_C);
+        choices_array.push(questions[index].choice_D);
+        var indices = [];
+        var new_choices = [];
+        for (var i = 0; i < choices_array.length; i++) {
+          for (var j = 0; j < eliminated_choices_array.length; j++) {
+            if (choices_array[i] == eliminated_choices_array[j]) {
+              indices.push(i);
+            }
+          };
+        };
+
+        for (var i = 0; i < choices_array.length; i++) {
+          if(i != indices[0] && i != indices[1]){
+            new_choices.push(choices_array[i]);
+          }
+        };
+
+        var content = '<div>'+
+            '<p style="font-size: 1.1em;"><b>Q: ' +  questions[index].content + '</b></p><table><tr>'+ 
+            '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + new_choices[0] + '\',\'' + locIndex + '\')">A: ' + 
+            new_choices[0] + '</a></td>' +
+            '<td><a class="choice" onclick="javascript:correctAnswer(\'' + index + '\',\'' + new_choices[1] + '\',\'' + locIndex + '\')">B: ' + 
+            new_choices[1] + '</a></td></tr></table><br>' +
+            '<div style="font-size: 1.1em; color:rgb(242, 130, 130);"> Explaination: ' + exp + '</div></div>';
+      }
+
+infowindow1.setContent(content);
+
+var currentScore = document.getElementById("playerScore");
+    var currentScoreValue = currentScore.innerHTML;
+    currentScoreValue = +currentScoreValue - 20;
+    currentScore.innerHTML = currentScoreValue;
+    console.log("Before===" + gon.game.score);
+    gon.game.score = currentScoreValue;
+    gon.game.save;
+    console.log("After===" + gon.game.score);
+
+}
+
+function goToPreviousLocation() {
+  console.log("I am back here" + previousIndex);
+  console.log(locations[previousIndex].latitude + "====" + locations[previousIndex].longitude);
+
+  var panoramaOptions = {
+    position: new google.maps.LatLng(locations[previousIndex].latitude, locations[previousIndex].longitude),
+    pov: {
+      heading: 200,
+      pitch: 3,
+    },
+    zoom: 0
+  };
+  var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+  //map.setStreetView(panorama);
+  panorama.setVisible(true);
 }
 
 function getRandomInt(min, max) {

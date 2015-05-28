@@ -23,7 +23,7 @@
             @cities = @continent.cities 
             # @cities = checkpoint.cities 
             @cities.each do |city| %>
-          <%= link_to city.name, "checkpointsMap/play/#{@game.id}/#{checkpoint.id}/#{city.id}", html_options = {:class => "list-group-item"} %>
+          <%= link_to city.name, "/home/checkpointsMap/play/#{@game.id}/#{checkpoint.id}/#{city.id}", html_options = {:class => "list-group-item"} %>
           <% end %> <!-- End of @cities loop play_path(checkpoint) -->
         </div>
       </div>
