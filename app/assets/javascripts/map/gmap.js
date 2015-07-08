@@ -33,17 +33,22 @@ function initialize() {
 
 
   //var newYork = new google.maps.LatLng(40.729884, -73.99079899999998);
-  //var newYork = new google.maps.LatLng(40.751759, -73.982151); //heading 30 pitch 8
+  // old newyork 40.729884,-73.99079899999998
+  var newYork = new google.maps.LatLng(40.751759, -73.982151); //heading 30 pitch 8
   var playCity = new google.maps.LatLng(gon.city.latitude, gon.city.longitude);
   var paris = new google.maps.LatLng(48.851687, 2.351716);
   //var boston = new google.maps.LatLng(42.345573, -71.098326);
   //var loc = new google.maps.LatLng(40.731662, -73.998764);
+  var california = new google.maps.LatLng(37.869085, -122.254775);
+
+  //40.729837, -73.99071600000002 new google.maps.LatLng(40.729837, -73.99071600000002)
+  var ny = new google.maps.LatLng(40.729884, -73.990988);
 
   var panoramaOptions = {
     position: playCity,
     pov: {
-      heading: 200,
-      pitch: 3,
+      heading: 200,//30,
+      pitch: 3,//8,
     },
     zoom: 0
   };
@@ -148,18 +153,44 @@ function initialize() {
   //   '<a class="hint-choice" href="#">Remove Two (-50)</a></div></div>'; 
 
   //Bonus location, marker and content
-  var Bonus = new google.maps.LatLng(40.729424, -73.99087500000002);//40.729700, -73.99079799999000);
+  //var Bonus = new google.maps.LatLng(40.729424, -73.99087500000002);//40.729700, -73.99079799999000);
+  // var Bonus = new google.maps.LatLng(52.517053, 13.395211000000018);
+  var Bonus = new google.maps.LatLng(40.752814,-73.98137199999996); // (40.752814,-73.98137199999996) 40.752391, -73.98168699999997
   var BonusQuestion = createBonusMarker(Bonus, panorama, "Bonus Tool Tip");
-  var BonusContent = '<div class="pull-left">' +
-    '<img src="/assets/Empire state.jpg" style="padding-right: 20px;"></div>' +
+  //Empire State
+  // var BonusContent = '<div class="pull-left">' +
+  //   '<img src="/assets/Empire state.jpg" style="padding-right: 20px;"></div>' +
+  //   '<div class="pull-right">' + 
+  //   '<p><h4>The Empire State Building: </h4></p>' +
+  //   '<p class="bonus">* Where to find me?</p>' +
+  //   '<p>Midtown Manhattan, New York City.</p>' +
+  //   '<p class="bonus">* How tall am I?</p>' +
+  //   '<p>102-story skyscraper.</p>' +
+  //   '<p class="bonus">* How long it took to build me?</p>' +
+  //   '<p>2 years.</p></div>';
+
+  //Friedrich Wilhelm III
+    // var BonusContent = '<div class="pull-left">' +
+    // '<img src="/assets/nypb.JPG" style="padding-right: 20px; width=169px; height=216px;"></div>' +
+    // '<div class="pull-right">' + 
+    // '<p><h4>Friedrich Wilhelm III </h4></p>' +
+    // '<p class="bonus">* Who am I ?</p>' +
+    // '<p>I am Friedrich Wilhelm III, King of Prussia.</p>' +
+    // '<p class="bonus">* How many years have I ruled Prussia?</p>' +
+    // '<p>I ruled Prussia for 43 years.</p>' +
+    // '<p class="bonus">* When did I die ?</p>' +
+    // '<p>I died on 7 June 1840 in Berlin.</p></div>';
+
+    var BonusContent = '<div class="pull-left">' +
+    '<img src="/assets/nypb.JPG" style="padding-right: 20px; width=169px; height=216px;"></div>' +
     '<div class="pull-right">' + 
-    '<p><h4>The Empire State Building: </h4></p>' +
-    '<p class="bonus">* Where to find me?</p>' +
-    '<p>Midtown Manhattan, New York City.</p>' +
-    '<p class="bonus">* How tall am I?</p>' +
-    '<p>102-story skyscraper.</p>' +
-    '<p class="bonus">* How long it took to build me?</p>' +
-    '<p>2 years.</p></div>';
+    '<p><h4>New York Public Library </h4></p>' +
+    '<p class="bonus">* Where am I ?</p>' +
+    '<p>I am in Bryant Park, Manhattan, New York. <br> (Look to your Left)</p>' +
+    '<p class="bonus">* How many items do I have ?</p>' +
+    '<p>I have nearly 53 million items.</p>' +
+    '<p class="bonus">* Am I large or small ?</p>' +
+    '<p>I am the fourth largest public library in the world.</p></div>';
 
   //To pop up Question 1 window
   // var infowindow = createInfoWindow(Q1Content);
@@ -177,8 +208,14 @@ function initialize() {
 
   //To pop up Bonus tool tip window
   var infowindow2 = createInfoWindow(BonusContent);
+  //BonusQuestion.setAnimation(google.maps.Animation.BOUNCE);
   google.maps.event.addListener(BonusQuestion, 'click', function() {
-    infowindow2.open(panorama, BonusQuestion);
+    if(infowindow2.getMap() !== null){
+      infowindow2.close();
+      BonusQuestion.setAnimation(google.maps.Animation.BOUNCE);
+    } else {
+    BonusQuestion.setAnimation(null);
+    infowindow2.open(panorama, BonusQuestion);}
   }); 
 
   // var question1 = new google.maps.LatLng(40.72991, -73.99082499999997); 
@@ -266,7 +303,8 @@ function correctAnswer(index,choice,locIndex){
     // console.log(currentScoreValue);
 
     //Updating and displaying the questions progress bar 
-    var newProgressValue = (((+locIndex+1)/7) * 100);
+    // var newProgressValue = (((+locIndex+1)/7) * 100);
+    var newProgressValue = (((+locIndex+1)/3) * 100);
     $('#playerProgress').attr('aria-valuenow', newProgressValue);
     // console.log("aria-valuenow " + newProgressValue);
 
@@ -277,7 +315,10 @@ function correctAnswer(index,choice,locIndex){
     $("#playerProgress").html(percentage + "%");
     // console.log(newProgressValue + "==========" + newProgressWidth);
 
-    if(locIndex == 6){
+    // if(locIndex == 6){
+    //   popup('checkpointCompleted');
+    // }
+    if(locIndex == 2){
       popup('checkpointCompleted');
     }
 
@@ -463,6 +504,15 @@ function goToPreviousLocation() {
   var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
   //map.setStreetView(panorama);
   panorama.setVisible(true);
+}
+
+function challengeQuestion(){
+  var currentScore = document.getElementById("playerScore");
+    var currentScoreValue = currentScore.innerHTML;
+    currentScoreValue = +currentScoreValue + 40;
+    currentScore.innerHTML = currentScoreValue;
+
+    popup('popUpDiv'); 
 }
 
 function getRandomInt(min, max) {

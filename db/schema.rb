@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150507074304) do
+ActiveRecord::Schema.define(version: 20150530124006) do
 
   create_table "avatars", force: :cascade do |t|
     t.string   "avatar_100", limit: 255
@@ -130,6 +130,14 @@ ActiveRecord::Schema.define(version: 20150507074304) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "inventions_players", force: :cascade do |t|
+    t.integer "player_id",    limit: 4
+    t.integer "invention_id", limit: 4
+  end
+
+  add_index "inventions_players", ["invention_id"], name: "index_inventions_players_on_invention_id", using: :btree
+  add_index "inventions_players", ["player_id"], name: "index_inventions_players_on_player_id", using: :btree
+
   create_table "lessons", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.integer  "unit_id",    limit: 4
@@ -153,25 +161,27 @@ ActiveRecord::Schema.define(version: 20150507074304) do
   add_index "location_hints", ["city_id"], name: "index_location_hints_on_city_id", using: :btree
 
   create_table "players", force: :cascade do |t|
-    t.string   "username",           limit: 255
-    t.string   "email",              limit: 255
-    t.string   "password",           limit: 255
-    t.integer  "health_percentage",  limit: 4
-    t.text     "health_description", limit: 65535
-    t.integer  "avatar_id",          limit: 4
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.string   "username",               limit: 255
+    t.integer  "health_percentage",      limit: 4
+    t.text     "health_description",     limit: 65535
+    t.integer  "avatar_id",              limit: 4
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "email",                  limit: 255,   default: "", null: false
+    t.string   "encrypted_password",     limit: 255,   default: "", null: false
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          limit: 4,     default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
   end
 
   add_index "players", ["avatar_id"], name: "index_players_on_avatar_id", using: :btree
-
-  create_table "players_inventions", force: :cascade do |t|
-    t.integer "player_id",    limit: 4
-    t.integer "invention_id", limit: 4
-  end
-
-  add_index "players_inventions", ["invention_id"], name: "index_players_inventions_on_invention_id", using: :btree
-  add_index "players_inventions", ["player_id"], name: "index_players_inventions_on_player_id", using: :btree
+  add_index "players", ["email"], name: "index_players_on_email", unique: true, using: :btree
+  add_index "players", ["reset_password_token"], name: "index_players_on_reset_password_token", unique: true, using: :btree
 
   create_table "question_locations", force: :cascade do |t|
     t.integer  "number",     limit: 4
@@ -225,11 +235,11 @@ ActiveRecord::Schema.define(version: 20150507074304) do
   add_foreign_key "games_lessons", "lessons"
   add_foreign_key "games_questions", "games"
   add_foreign_key "games_questions", "questions"
+  add_foreign_key "inventions_players", "inventions"
+  add_foreign_key "inventions_players", "players"
   add_foreign_key "lessons", "units"
   add_foreign_key "location_hints", "cities"
   add_foreign_key "players", "avatars"
-  add_foreign_key "players_inventions", "inventions"
-  add_foreign_key "players_inventions", "players"
   add_foreign_key "question_locations", "cities"
   add_foreign_key "questions", "educational_levels"
   add_foreign_key "questions", "lessons"

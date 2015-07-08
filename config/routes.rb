@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :players
   root 'pages#home'
 
   get 'profile' => 'pages#profile', as: :profile
@@ -30,6 +31,8 @@ Rails.application.routes.draw do
   get 'home/checkpointsMap/play:game_id/:checkpoint_id/:city_id?:score&:correct_questions' => 'pages#play', as: :playGet
 
   get 'treasureHunties/:game_id/information' => 'pages#information', as: :inventionInformation
+
+  get 'players/sign_out' => "devise/sessions#destroy"
 
   # post '/' => 'pages#checkpointsMap', as: :newGame 
 

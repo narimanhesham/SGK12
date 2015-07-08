@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
+  before_filter :authenticate_player!, :only =>[:checkpointsMap]
+
   def home
     @units = Unit.all
-    @game = Game.new
   end
 
   def profile
@@ -14,6 +15,10 @@ class PagesController < ApplicationController
   end
 
   def collectedInventions
+    @player = current_player
+    @microscopes_inventions = @player.inventions.where(:category => "Microscopes")
+    @magnets_inventions = @player.inventions.where(:category => "Magnets")
+    @food_chain_inventions = @player.inventions.where(:category => "Food Chain")
   end
 
   def topPlayers
@@ -23,14 +28,6 @@ class PagesController < ApplicationController
   end
 
   def play
-    #gon.units = Unit.all
-
-    # # Fetching random invention
-    # @inventions = Invention.all.pluck(:id)
-    # random = rand(1..@inventions.length)
-    # @invention = Invention.find(random)
-    # gon.game_invention = @invention 
-
     @city = City.find(params[:city_id])
     gon.city = @city
 
@@ -39,7 +36,6 @@ class PagesController < ApplicationController
 
     @game = Game.find(params[:game_id])
     @game.city_id = @city.id
-    # @game.invention_id = @invention.id
     gon.game = @game
     @game.save
 
@@ -107,11 +103,19 @@ class PagesController < ApplicationController
 
       @game = Game.new
       @game.mode = params[:mode]
-      @game.invention_id = @game_invention.id 
+      @game.invention_id = @game_invention.id
+
+      if(player_signed_in?)
+        @game.player_id = current_player.id
+      end
+
       @game.save
 
       @lessons = Lesson.find params[:game][:lesson_ids].split(',')
       @game.lessons << @lessons
+
+      @player = current_player
+      @player.inventions << @game_invention
     end
   end
 

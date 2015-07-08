@@ -18,12 +18,18 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li class="<%= yield(:home) %>"><%= link_to "Home", root_path %></li>
-        <li class="<%= yield(:profile) %>"><%= link_to "Profile", profile_path %></li>
-        
-        <li class="<%= yield(:collected_inventions) %>"><%= link_to "Collected Inventions", collectedInventions_path %></li>
-        <li class="<%= yield(:top_players) %>"><%= link_to "Top Players", topPlayers_path %></li>
-        <li class="<%= yield(:help) %>"><%= link_to "Help", help_path %></li>
+        <% if player_signed_in? %>
+          <li class="<%= yield(:home) %>"><%= link_to "Home", root_path %></li>
+          <li class="<%= yield(:profile) %>"><%= link_to "Profile", profile_path %></li>
+          
+          <li class="<%= yield(:collected_inventions) %>"><%= link_to "Collected Inventions", collectedInventions_path %></li>
+          <li class="<%= yield(:top_players) %>"><%= link_to "Top Players", topPlayers_path %></li>
+          <li class="<%= yield(:help) %>"><%= link_to "Help", help_path %></li>
+          <li class="<%= yield(:sign_out) %>"><%= link_to "Sign out", destroy_player_session_path %></li>
+        <% else %>
+          <li class="<%= yield(:sign_up) %>"><%= link_to "Register", new_player_registration_path %></li>
+          <li class="<%= yield(:sign_in) %>"><%= link_to "Sign in", new_player_session_path %></li>
+        <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
